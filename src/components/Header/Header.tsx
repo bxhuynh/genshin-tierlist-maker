@@ -9,7 +9,7 @@ const HeaderContainer = styled.div`
 const Header: React.FC = () => {
     return (
         <HeaderContainer>
-            <h1>Tierlist Maker</h1>
+            <h1>Genshin Tierlist Maker</h1>
         </HeaderContainer>
     );
 };

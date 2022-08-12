@@ -1,4 +1,4 @@
-const colors: string[] = [
+const tierColors: string[] = [
     '#FF7F7F',
     '#FFBF7F',
     '#FFDF7F',
@@ -16,4 +16,4 @@ const colors: string[] = [
     '#F7F7F7',
 ];
 
-export { colors };
+export { tierColors };
