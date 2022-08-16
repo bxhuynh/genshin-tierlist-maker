@@ -4,7 +4,7 @@ const SCContainer = styled.div<{ isLastItem?: boolean }>`
     background-color: #333;
     min-height: 80px;
     display: flex;
-    flex-wrap: true;
+    flex-wrap: wrap;
     margin: 0 auto;
     border-style: solid;
     border-color: black;
@@ -43,4 +43,10 @@ const SCSettingButton = styled.div`
     }
 `;
 
-export { SCContainer, SCLabel, SCCharacterContainer, SCControllerContainer, SCSettingButton };
+export {
+    SCContainer,
+    SCLabel,
+    SCCharacterContainer,
+    SCControllerContainer,
+    SCSettingButton,
+};

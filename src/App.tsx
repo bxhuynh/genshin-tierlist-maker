@@ -2,7 +2,13 @@ import React, { useState } from 'react';
 import AllCharacter from './components/AllCharacter';
 import Header from './components/Header';
 import Tier from './components/Tier';
-import { allCharacters, initRows, initRowOrder, Tierlist } from './constants/initial-data';
+import {
+    allCharacters,
+    initRows,
+    initRowOrder,
+    Tierlist,
+    TierInterface,
+} from './constants/initial-data';
 import styled from 'styled-components';
 import SettingModal from './components/SettingModal';
 
@@ -37,6 +43,10 @@ const App: React.FC = () => {
         };
     };
 
+    const updateRow = (newRow: TierInterface) => {
+        setRows({ ...rows, [newRow.id]: newRow });
+    };
+
     return (
         <SCApp>
             <Header />
@@ -54,7 +64,12 @@ const App: React.FC = () => {
                 })}
                 <AllCharacter characters={characters} />
             </SCTierContainer>
-            <SettingModal open={openModal} toggleModal={toggleModal} row={rows[selectedRowId]} />
+            <SettingModal
+                open={openModal}
+                toggleModal={toggleModal}
+                row={rows[selectedRowId]}
+                updateRow={updateRow}
+            />
         </SCApp>
     );
 };
