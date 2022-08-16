@@ -11,9 +11,10 @@ interface TierInterface {
 interface Props {
     row: TierInterface;
     isLastItem?: boolean;
+    onOpenModal: () => void;
 }
 
-const Tier: React.FC<Props> = ({ row, isLastItem }) => {
+const Tier: React.FC<Props> = ({ row, isLastItem, onOpenModal }) => {
     const { label, color, characterIds } = row;
 
     return (
@@ -25,12 +26,7 @@ const Tier: React.FC<Props> = ({ row, isLastItem }) => {
                 ))}
             </SCCharacterContainer>
             <SCControllerContainer>
-                <SCSettingButton
-                    onClick={() => {
-                        alert('trigger open modal');
-                    }}
-                    className="material-icons"
-                >
+                <SCSettingButton onClick={onOpenModal} className="material-icons">
                     settings
                 </SCSettingButton>
             </SCControllerContainer>
