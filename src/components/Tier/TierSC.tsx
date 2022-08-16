@@ -1,14 +1,14 @@
 import styled from 'styled-components';
 
-const SCContainer = styled.div`
+const SCContainer = styled.div<{ isLastItem?: boolean }>`
     background-color: #333;
     min-height: 80px;
     display: flex;
     flex-wrap: true;
     margin: 0 auto;
-    border-color: black;
     border-style: solid;
-    border-width: 0px 3px 3px 3px;
+    border-color: black;
+    border-width: 0px 1px ${(props) => (props.isLastItem ? '1px' : '2px')} 1px;
 `;
 const SCLabel = styled.div`
     width: 80px;
@@ -19,11 +19,28 @@ const SCLabel = styled.div`
     padding: 16px;
     overflow: hidden;
     word-break: break-all;
-    border-right: 3px solid black;
     outline: none;
 `;
 const SCCharacterContainer = styled.div`
     flex: 1;
 `;
 
-export { SCContainer, SCLabel, SCCharacterContainer };
+const SCControllerContainer = styled.div`
+    background-color: black;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0px 8px;
+`;
+
+const SCSettingButton = styled.div`
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    &:hover {
+        background: #333;
+    }
+`;
+
+export { SCContainer, SCLabel, SCCharacterContainer, SCControllerContainer, SCSettingButton };

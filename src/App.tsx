@@ -1,9 +1,21 @@
 import React, { useState } from 'react';
-import './App.css';
 import AllCharacter from './components/AllCharacter';
 import Header from './components/Header';
 import Tier from './components/Tier';
 import { allCharacters, initRows, initRowOrder, Tierlist } from './constants/initial-data';
+import styled from 'styled-components';
+
+const SCApp = styled.div`
+    width: 100%;
+    overflow-x: hidden;
+`;
+
+const SCTierContainer = styled.div`
+    width: 90%;
+    max-width: 1040px;
+    margin: 9px auto;
+    border-top: 1px solid black;
+`;
 
 const App: React.FC = () => {
     const [characters, setCharaters] = useState<string[]>(allCharacters);
@@ -11,16 +23,16 @@ const App: React.FC = () => {
     const [rowOrder, setRowOrder] = useState<string[]>(initRowOrder);
 
     return (
-        <div className="App">
+        <SCApp>
             <Header />
-            <div style={{ width: '90%', maxWidth: 1040, margin: '0px auto', borderTop: '3px solid black' }}>
-                {rowOrder.map((rowId: string) => {
+            <SCTierContainer>
+                {rowOrder.map((rowId: string, index: number) => {
                     const row = rows[rowId];
-                    return <Tier key={row.id} row={row} />;
+                    return <Tier key={row.id} row={row} isLastItem={Boolean(index === rowOrder.length - 1)} />;
                 })}
                 <AllCharacter characters={characters} />
-            </div>
-        </div>
+            </SCTierContainer>
+        </SCApp>
     );
 };
 

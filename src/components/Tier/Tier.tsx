@@ -1,7 +1,6 @@
 import * as React from 'react';
 import Character from '../Character';
-import { SCContainer, SCLabel, SCCharacterContainer } from './TierSC';
-
+import { SCContainer, SCLabel, SCCharacterContainer, SCControllerContainer, SCSettingButton } from './TierSC';
 interface TierInterface {
     id: string;
     label: string;
@@ -11,26 +10,30 @@ interface TierInterface {
 
 interface Props {
     row: TierInterface;
+    isLastItem?: boolean;
 }
 
-const Tier: React.FC<Props> = ({ row }) => {
+const Tier: React.FC<Props> = ({ row, isLastItem }) => {
     const { label, color, characterIds } = row;
 
-    /*TODO: update value to rows*/
-    const updateLabel = (e: React.BaseSyntheticEvent) => {
-        console.log(e.currentTarget.textContent);
-    };
-
     return (
-        <SCContainer>
-            <SCLabel color={color} contentEditable={true} suppressContentEditableWarning={true} onInput={updateLabel}>
-                {label}
-            </SCLabel>
+        <SCContainer isLastItem={isLastItem}>
+            <SCLabel color={color}>{label}</SCLabel>
             <SCCharacterContainer>
                 {characterIds.map((characterId) => (
                     <Character key={characterId} characterId={characterId} />
                 ))}
             </SCCharacterContainer>
+            <SCControllerContainer>
+                <SCSettingButton
+                    onClick={() => {
+                        alert('trigger open modal');
+                    }}
+                    className="material-icons"
+                >
+                    settings
+                </SCSettingButton>
+            </SCControllerContainer>
         </SCContainer>
     );
 };
