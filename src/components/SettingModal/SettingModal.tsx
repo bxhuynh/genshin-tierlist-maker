@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { TierInterface } from '../../constants/initial-data';
+import { TierInterface } from '../../constants/TierInterface';
 import {
     SCModalContainer,
     SCModalContent,
@@ -35,7 +35,7 @@ const SettingModal: React.FunctionComponent<SettingModalProps> = (props) => {
     };
 
     useEffect(() => {
-        setLabel(row?.label);
+        setLabel(row?.label ?? '');
     }, [open]);
 
     return (

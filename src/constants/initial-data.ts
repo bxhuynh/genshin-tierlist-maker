@@ -1,3 +1,5 @@
+import { Tierlist } from './TierInterface';
+
 const allCharacters: string[] = [
     'albedo',
     'aloy',
@@ -49,24 +51,29 @@ const allCharacters: string[] = [
     'zhongli',
 ];
 
-export interface TierInterface {
-    id: string;
-    label: string;
-    color: string;
-    characterIds: string[];
-}
-
-export interface Tierlist {
-    [key: string]: TierInterface;
-}
-
 const initRows: Tierlist = {
-    'tier-S': { id: 'tier-S', label: 'S', color: '#FF7F7F', characterIds: [] },
+    'tier-S': {
+        id: 'tier-S',
+        label: 'S',
+        color: '#FF7F7F',
+        characterIds: ['albedo', 'aloy', 'amber'],
+    },
     'tier-A': {
         id: 'tier-A',
         label: 'A',
         color: '#FFBF7F',
-        characterIds: [],
+        characterIds: [
+            'itto',
+            'ayaka',
+            'barbara',
+            'beidou',
+            'bennett',
+            'chongyun',
+            'diluc',
+            'diona',
+            'eula',
+            'fischl',
+        ],
     },
     'tier-B': {
         id: 'tier-B',
@@ -78,6 +85,12 @@ const initRows: Tierlist = {
     'tier-D': { id: 'tier-D', label: 'D', color: '#BFFF7F', characterIds: [] },
 };
 
-const initRowOrder: string[] = ['tier-S', 'tier-A', 'tier-B', 'tier-C', 'tier-D'];
+const initRowOrder: string[] = [
+    'tier-S',
+    'tier-A',
+    'tier-B',
+    'tier-C',
+    'tier-D',
+];
 
 export { allCharacters, initRows, initRowOrder };
