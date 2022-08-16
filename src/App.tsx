@@ -2,11 +2,7 @@ import React, { useState } from 'react';
 import AllCharacter from './components/AllCharacter';
 import Header from './components/Header';
 import Tier from './components/Tier';
-import {
-    allCharacters,
-    initRows,
-    initRowOrder,
-} from './constants/initial-data';
+import { initRows, initRowOrder } from './constants/initial-data';
 import { Tierlist, TierInterface } from './constants/TierInterface';
 import styled from 'styled-components';
 import SettingModal from './components/SettingModal';
@@ -25,7 +21,6 @@ const SCTierContainer = styled.div`
 `;
 
 const App: React.FC = () => {
-    const [characters, setCharaters] = useState<string[]>(allCharacters);
     const [rows, setRows] = useState<Tierlist>(initRows);
     const [rowOrder, setRowOrder] = useState<string[]>(initRowOrder);
     const [openModal, setOpenModal] = useState<boolean>(false);
@@ -94,16 +89,19 @@ const App: React.FC = () => {
                         const row = rows[rowId];
                         return (
                             <Tier
-                                key={row.id}
+                                key={rowId}
                                 row={row}
                                 isLastItem={Boolean(
-                                    index === rowOrder.length - 1
+                                    index === rowOrder.length - 2
                                 )}
                                 onOpenModal={handleOpenModal(rowId)}
                             />
                         );
                     })}
-                    <AllCharacter characters={characters} />
+                    <AllCharacter
+                        key="all-char"
+                        characters={rows['all-char'].characterIds}
+                    />
                 </SCTierContainer>
                 <SettingModal
                     open={openModal}

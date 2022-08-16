@@ -1,6 +1,7 @@
 import * as React from 'react';
 import styled from 'styled-components';
 import Character from '../Character';
+import { Droppable } from 'react-beautiful-dnd';
 
 interface AllCharacterInterface {
     characters: string[];
@@ -14,15 +15,20 @@ const AllCharacter: React.FunctionComponent<AllCharacterInterface> = ({
     characters,
 }) => {
     return (
-        <Container>
-            {/* {characters.map((characterId: string, index: number) => (
-                <Character
-                    characterId={characterId}
-                    key={characterId}
-                    index={index}
-                />
-            ))} */}
-        </Container>
+        <Droppable droppableId={'all-char'} direction="horizontal">
+            {(provided) => (
+                <Container {...provided.droppableProps} ref={provided.innerRef}>
+                    {characters.map((characterId: string, index: number) => (
+                        <Character
+                            key={characterId}
+                            index={index}
+                            characterId={characterId}
+                        />
+                    ))}
+                    {provided.placeholder}
+                </Container>
+            )}
+        </Droppable>
     );
 };
 

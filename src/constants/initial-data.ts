@@ -56,24 +56,13 @@ const initRows: Tierlist = {
         id: 'tier-S',
         label: 'S',
         color: '#FF7F7F',
-        characterIds: ['albedo', 'aloy', 'amber'],
+        characterIds: [],
     },
     'tier-A': {
         id: 'tier-A',
         label: 'A',
         color: '#FFBF7F',
-        characterIds: [
-            'itto',
-            'ayaka',
-            'barbara',
-            'beidou',
-            'bennett',
-            'chongyun',
-            'diluc',
-            'diona',
-            'eula',
-            'fischl',
-        ],
+        characterIds: [],
     },
     'tier-B': {
         id: 'tier-B',
@@ -83,6 +72,12 @@ const initRows: Tierlist = {
     },
     'tier-C': { id: 'tier-C', label: 'C', color: '#FFFF7F', characterIds: [] },
     'tier-D': { id: 'tier-D', label: 'D', color: '#BFFF7F', characterIds: [] },
+    'all-char': {
+        id: 'all-char',
+        label: 'All',
+        color: 'transparent',
+        characterIds: [...allCharacters],
+    },
 };
 
 const initRowOrder: string[] = [

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 const SCContainer = styled.div<{ isLastItem?: boolean }>`
     background-color: #333;
-    min-height: 80px;
+    min-height: 83px;
     display: flex;
     flex-wrap: wrap;
     margin: 0 auto;
