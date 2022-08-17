@@ -100,8 +100,9 @@ const SCButtonContainer = styled.div`
     flex-wrap: wrap;
 `;
 
-const SCButton = styled.div`
+const SCButton = styled.div<{ disable?: boolean }>`
     cursor: pointer;
+    pointer-events: ${(props) => (props.disable ? 'none' : 'auto')};
     padding: 8px 16px;
     min-height: 24px;
     border-radius: 4px;
@@ -114,9 +115,10 @@ const SCButton = styled.div`
     transition: 0.5s background-color;
     font-size: 0.875rem;
     &:hover {
-        background-color: grey;
+        background-color: #e0e0e0;
         transition: 0.5s background-color;
     }
+    opacity: ${(props) => (props.disable ? 0.5 : 1)};
 `;
 
 export {

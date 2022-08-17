@@ -9,6 +9,7 @@ interface AllCharacterInterface {
 
 const Container = styled.div`
     margin: 40px 0 60px 0;
+    min-height: 320px;
 `;
 
 const AllCharacter: React.FunctionComponent<AllCharacterInterface> = ({

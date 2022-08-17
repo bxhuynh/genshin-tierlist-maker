@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import AllCharacter from './components/AllCharacter';
 import Header from './components/Header';
 import Tier from './components/Tier';
-import { initRows, initRowOrder } from './constants/initial-data';
+import { initRows, initRowOrder, allCharKey } from './constants/initial-data';
 import { Tierlist, TierInterface } from './constants/TierInterface';
 import styled from 'styled-components';
 import SettingModal from './components/SettingModal';
@@ -15,7 +15,7 @@ const SCApp = styled.div`
 
 const SCTierContainer = styled.div`
     width: 90%;
-    max-width: 1040px;
+    max-width: 1062px;
     margin: 9px auto;
     border-top: 1px solid black;
 `;
@@ -44,6 +44,7 @@ const App: React.FC = () => {
 
     const onDragEnd = (result: DropResult) => {
         const { destination, source, draggableId } = result;
+        console.log({ destination, source, draggableId });
 
         if (!destination?.droppableId || !draggableId) return;
 
@@ -79,6 +80,48 @@ const App: React.FC = () => {
         setRows(newRows);
     };
 
+    const onClearAllImage = () => {
+        if (!selectedRowId) return;
+
+        setRows({
+            ...rows,
+            [selectedRowId]: {
+                ...rows[selectedRowId],
+                characterIds: [],
+            },
+            [allCharKey]: {
+                ...rows[allCharKey],
+                characterIds: rows[allCharKey].characterIds.concat(
+                    rows[selectedRowId].characterIds
+                ),
+            },
+        });
+        setOpenModal(false);
+    };
+
+    const deleteSelectedRow = () => {
+        if (!selectedRowId) return;
+
+        const newCharacterIds: string[] = Array.from(
+            rows[allCharKey].characterIds.concat(
+                rows[selectedRowId].characterIds
+            )
+        );
+
+        const rowIndex: number = rowOrder.indexOf(selectedRowId);
+        const newRowOrder: string[] = Array.from(rowOrder);
+        newRowOrder.splice(rowIndex, 1);
+
+        const newRows: Tierlist = JSON.parse(JSON.stringify(rows));
+        delete newRows[selectedRowId];
+        newRows[allCharKey].characterIds = newCharacterIds;
+
+        setOpenModal(false);
+        setSelectedRowId('');
+        setRows(newRows);
+        setRowOrder(newRowOrder);
+    };
+
     return (
         <SCApp>
             <Header />
@@ -92,7 +135,7 @@ const App: React.FC = () => {
                                 key={rowId}
                                 row={row}
                                 isLastItem={Boolean(
-                                    index === rowOrder.length - 2
+                                    index === rowOrder.length - 1
                                 )}
                                 onOpenModal={handleOpenModal(rowId)}
                             />
@@ -108,6 +151,9 @@ const App: React.FC = () => {
                     toggleModal={toggleModal}
                     row={rows[selectedRowId]}
                     updateRow={updateRow}
+                    onClearAllImage={onClearAllImage}
+                    deleteSelectedRow={deleteSelectedRow}
+                    allowDelete={rowOrder.length > 1}
                 />
             </DragDropContext>
         </SCApp>

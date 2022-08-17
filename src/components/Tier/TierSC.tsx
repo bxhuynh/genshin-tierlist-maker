@@ -4,14 +4,13 @@ const SCContainer = styled.div<{ isLastItem?: boolean }>`
     background-color: #333;
     min-height: 83px;
     display: flex;
-    flex-wrap: wrap;
     margin: 0 auto;
     border-style: solid;
     border-color: black;
     border-width: 0px 1px ${(props) => (props.isLastItem ? '1px' : '2px')} 1px;
 `;
 const SCLabel = styled.div`
-    width: 80px;
+    width: 100px;
     background-color: ${(props) => props.color};
     display: flex;
     align-items: center;
@@ -20,18 +19,20 @@ const SCLabel = styled.div`
     overflow: hidden;
     word-break: break-all;
     outline: none;
+    box-sizing: border-box;
 `;
 const SCCharacterContainer = styled.div`
     flex: 1;
 `;
 
 const SCControllerContainer = styled.div`
+    width: 80px;
     background-color: black;
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    padding: 0px 8px;
+    // padding: 0px 8px;
 `;
 
 const SCSettingButton = styled.div`

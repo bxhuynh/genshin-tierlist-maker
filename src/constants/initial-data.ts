@@ -1,5 +1,7 @@
 import { Tierlist } from './TierInterface';
 
+const allCharKey = 'all-char';
+
 const allCharacters: string[] = [
     'albedo',
     'aloy',
@@ -72,8 +74,8 @@ const initRows: Tierlist = {
     },
     'tier-C': { id: 'tier-C', label: 'C', color: '#FFFF7F', characterIds: [] },
     'tier-D': { id: 'tier-D', label: 'D', color: '#BFFF7F', characterIds: [] },
-    'all-char': {
-        id: 'all-char',
+    [allCharKey]: {
+        id: allCharKey,
         label: 'All',
         color: 'transparent',
         characterIds: [...allCharacters],
@@ -88,4 +90,4 @@ const initRowOrder: string[] = [
     'tier-D',
 ];
 
-export { allCharacters, initRows, initRowOrder };
+export { allCharacters, initRows, initRowOrder, allCharKey };

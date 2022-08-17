@@ -18,10 +18,21 @@ interface SettingModalProps {
     row: TierInterface;
     toggleModal: () => void;
     updateRow: (newRow: TierInterface) => void;
+    onClearAllImage: () => void;
+    deleteSelectedRow: () => void;
+    allowDelete: boolean;
 }
 
 const SettingModal: React.FunctionComponent<SettingModalProps> = (props) => {
-    const { open, row, toggleModal, updateRow } = props;
+    const {
+        open,
+        row,
+        toggleModal,
+        updateRow,
+        onClearAllImage,
+        deleteSelectedRow,
+        allowDelete,
+    } = props;
     const [label, setLabel] = useState<string>('');
 
     const handleChangeColor = (newColor: string) => {
@@ -64,8 +75,15 @@ const SettingModal: React.FunctionComponent<SettingModalProps> = (props) => {
                 />
 
                 <SCButtonContainer>
-                    <SCButton>Delete Row</SCButton>
-                    <SCButton>Clear Row Image</SCButton>
+                    <SCButton
+                        onClick={deleteSelectedRow}
+                        disable={!allowDelete}
+                    >
+                        Delete Row
+                    </SCButton>
+                    <SCButton onClick={onClearAllImage}>
+                        Clear Row Image
+                    </SCButton>
                     <SCButton>Add a Row Above</SCButton>
                     <SCButton>Add a Row Below</SCButton>
                 </SCButtonContainer>
