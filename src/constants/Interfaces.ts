@@ -8,3 +8,5 @@ export interface TierInterface {
 export interface Tierlist {
     [key: string]: TierInterface;
 }
+
+export type Direction = 'ABOVE' | 'BELOW';

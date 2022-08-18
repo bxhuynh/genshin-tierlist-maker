@@ -1,4 +1,4 @@
-import { Tierlist } from './TierInterface';
+import { Tierlist } from './Interfaces';
 
 const allCharKey = 'all-char';
 

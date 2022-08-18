@@ -1,12 +1,17 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
+import { DragDropContext, DropResult } from 'react-beautiful-dnd';
+
 import AllCharacter from './components/AllCharacter';
 import Header from './components/Header';
 import Tier from './components/Tier';
-import { initRows, initRowOrder, allCharKey } from './constants/initial-data';
-import { Tierlist, TierInterface } from './constants/TierInterface';
-import styled from 'styled-components';
 import SettingModal from './components/SettingModal';
-import { DragDropContext, DropResult } from 'react-beautiful-dnd';
+
+import { initRows, initRowOrder, allCharKey } from './constants/initial-data';
+import { Tierlist, TierInterface, Direction } from './constants/Interfaces';
+import generateId from './utils/generateId';
+import getRandomColor from './utils/randomTierColor';
+import { deepCloneTierlist } from './utils/deepClone';
 
 const SCApp = styled.div`
     width: 100%;
@@ -121,9 +126,9 @@ const App: React.FC = () => {
         setRowOrder(newRowOrder);
     };
 
-    const moveTo = (direction: 'UP' | 'DOWN', index: number) => {
+    const moveTo = (direction: Direction, index: number): (() => void) => {
         return () => {
-            const unit = direction === 'UP' ? -1 : 1;
+            const unit = direction === 'ABOVE' ? -1 : 1;
             const newIndex = index + unit;
             if (newIndex < 0 || newIndex >= rowOrder.length) return;
 
@@ -132,6 +137,33 @@ const App: React.FC = () => {
             newRowOrder[newIndex] = newRowOrder[index];
             newRowOrder[index] = temp;
             setRowOrder(newRowOrder);
+        };
+    };
+
+    const addRow = (to: Direction): (() => void) => {
+        return () => {
+            if (!selectedRowId) return;
+            const index = rowOrder.findIndex((id) => id === selectedRowId);
+            if (index < -1) return;
+
+            let rowIndex: number = (to === 'BELOW' ? 1 : 0) + index;
+            if (rowIndex < 0) rowIndex = 0;
+
+            const rowId = 'tier' + generateId();
+            const newRow: TierInterface = {
+                id: rowId,
+                label: 'New Tier',
+                characterIds: [],
+                color: getRandomColor(),
+            };
+            const newRows: Tierlist = deepCloneTierlist(rows);
+            newRows[rowId] = newRow;
+            const newRowOrder = Array.from(rowOrder);
+            newRowOrder.splice(rowIndex, 0, rowId);
+
+            setRows(newRows);
+            setRowOrder(newRowOrder);
+            setOpenModal(false);
         };
     };
 
@@ -156,10 +188,10 @@ const App: React.FC = () => {
                             />
                         );
                     })}
-                    {/* <AllCharacter
+                    <AllCharacter
                         key="all-char"
                         characters={rows['all-char'].characterIds}
-                    /> */}
+                    />
                 </SCTierContainer>
                 <SettingModal
                     open={openModal}
@@ -169,6 +201,7 @@ const App: React.FC = () => {
                     onClearAllImage={onClearAllImage}
                     deleteSelectedRow={deleteSelectedRow}
                     allowDelete={rowOrder.length > 1}
+                    addRow={addRow}
                 />
             </DragDropContext>
         </SCApp>

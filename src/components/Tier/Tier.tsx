@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Droppable } from 'react-beautiful-dnd';
+
 import Character from '../Character';
 import {
     SCContainer,
@@ -9,19 +10,14 @@ import {
     SCSettingButton,
     SCArrowContainer,
 } from './TierSC';
-interface TierInterface {
-    id: string;
-    label: string;
-    color: string;
-    characterIds: string[];
-}
+import { TierInterface } from '../../constants/Interfaces';
 
 interface Props {
     row: TierInterface;
     isLastItem?: boolean;
     rowIndex: number;
     onOpenModal: () => void;
-    moveTo: (direction: 'UP' | 'DOWN', index: number) => () => void;
+    moveTo: (direction: 'ABOVE' | 'BELOW', index: number) => () => void;
 }
 
 const Tier: React.FC<Props> = ({
@@ -64,13 +60,13 @@ const Tier: React.FC<Props> = ({
                 </SCSettingButton>
                 <SCArrowContainer>
                     <SCSettingButton
-                        onClick={moveTo('UP', rowIndex)}
+                        onClick={moveTo('ABOVE', rowIndex)}
                         className="material-icons"
                     >
                         keyboard_arrow_up
                     </SCSettingButton>
                     <SCSettingButton
-                        onClick={moveTo('DOWN', rowIndex)}
+                        onClick={moveTo('BELOW', rowIndex)}
                         className="material-icons"
                     >
                         keyboard_arrow_down

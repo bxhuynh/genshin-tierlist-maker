@@ -1,7 +1,8 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import Character from '../Character';
 import { Droppable } from 'react-beautiful-dnd';
+
+import Character from '../Character';
 
 interface AllCharacterInterface {
     characters: string[];

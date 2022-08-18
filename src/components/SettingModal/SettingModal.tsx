@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { TierInterface } from '../../constants/TierInterface';
+import { TierInterface, Direction } from '../../constants/Interfaces';
 import {
     SCModalContainer,
     SCModalContent,
@@ -21,6 +21,7 @@ interface SettingModalProps {
     onClearAllImage: () => void;
     deleteSelectedRow: () => void;
     allowDelete: boolean;
+    addRow: (to: Direction) => () => void;
 }
 
 const SettingModal: React.FunctionComponent<SettingModalProps> = (props) => {
@@ -32,6 +33,7 @@ const SettingModal: React.FunctionComponent<SettingModalProps> = (props) => {
         onClearAllImage,
         deleteSelectedRow,
         allowDelete,
+        addRow,
     } = props;
     const [label, setLabel] = useState<string>('');
 
@@ -57,9 +59,9 @@ const SettingModal: React.FunctionComponent<SettingModalProps> = (props) => {
                 </SCCloseButton>
                 <SCLabel>Choose a Label Background Color:</SCLabel>
                 <SCColorContainer>
-                    {tierColors.map((color: string, index: number) => (
+                    {tierColors.map((color: string) => (
                         <SCColor
-                            key={index}
+                            key={`tier-color-${color}`}
                             backgroundColor={color}
                             isChoosed={Boolean(row?.color === color)}
                             onClick={handleChangeColor(color)}
@@ -84,8 +86,12 @@ const SettingModal: React.FunctionComponent<SettingModalProps> = (props) => {
                     <SCButton onClick={onClearAllImage}>
                         Clear Row Image
                     </SCButton>
-                    <SCButton>Add a Row Above</SCButton>
-                    <SCButton>Add a Row Below</SCButton>
+                    <SCButton onClick={addRow('ABOVE')}>
+                        Add a Row Above
+                    </SCButton>
+                    <SCButton onClick={addRow('BELOW')}>
+                        Add a Row Below
+                    </SCButton>
                 </SCButtonContainer>
             </SCModalContent>
         </SCModalContainer>
