@@ -7,6 +7,7 @@ import {
     SCCharacterContainer,
     SCControllerContainer,
     SCSettingButton,
+    SCArrowContainer,
 } from './TierSC';
 interface TierInterface {
     id: string;
@@ -18,10 +19,18 @@ interface TierInterface {
 interface Props {
     row: TierInterface;
     isLastItem?: boolean;
+    rowIndex: number;
     onOpenModal: () => void;
+    moveTo: (direction: 'UP' | 'DOWN', index: number) => () => void;
 }
 
-const Tier: React.FC<Props> = ({ row, isLastItem, onOpenModal }) => {
+const Tier: React.FC<Props> = ({
+    row,
+    isLastItem,
+    onOpenModal,
+    rowIndex,
+    moveTo,
+}) => {
     const { label, color, characterIds, id } = row;
 
     return (
@@ -53,6 +62,20 @@ const Tier: React.FC<Props> = ({ row, isLastItem, onOpenModal }) => {
                 >
                     settings
                 </SCSettingButton>
+                <SCArrowContainer>
+                    <SCSettingButton
+                        onClick={moveTo('UP', rowIndex)}
+                        className="material-icons"
+                    >
+                        keyboard_arrow_up
+                    </SCSettingButton>
+                    <SCSettingButton
+                        onClick={moveTo('DOWN', rowIndex)}
+                        className="material-icons"
+                    >
+                        keyboard_arrow_down
+                    </SCSettingButton>
+                </SCArrowContainer>
             </SCControllerContainer>
         </SCContainer>
     );

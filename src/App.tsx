@@ -27,7 +27,6 @@ const App: React.FC = () => {
     const [selectedRowId, setSelectedRowId] = useState<string>('');
 
     const toggleModal = () => {
-        console.log('openmodal', openModal);
         setOpenModal(!openModal);
     };
 
@@ -122,29 +121,45 @@ const App: React.FC = () => {
         setRowOrder(newRowOrder);
     };
 
+    const moveTo = (direction: 'UP' | 'DOWN', index: number) => {
+        return () => {
+            const unit = direction === 'UP' ? -1 : 1;
+            const newIndex = index + unit;
+            if (newIndex < 0 || newIndex >= rowOrder.length) return;
+
+            const newRowOrder: string[] = [...rowOrder];
+            const temp: string = rowOrder[newIndex];
+            newRowOrder[newIndex] = newRowOrder[index];
+            newRowOrder[index] = temp;
+            setRowOrder(newRowOrder);
+        };
+    };
+
     return (
         <SCApp>
             <Header />
 
             <DragDropContext onDragEnd={onDragEnd}>
                 <SCTierContainer>
-                    {rowOrder.map((rowId: string, index: number) => {
+                    {rowOrder.map((rowId: string, rowIndex: number) => {
                         const row = rows[rowId];
                         return (
                             <Tier
+                                rowIndex={rowIndex}
                                 key={rowId}
                                 row={row}
                                 isLastItem={Boolean(
-                                    index === rowOrder.length - 1
+                                    rowIndex === rowOrder.length - 1
                                 )}
                                 onOpenModal={handleOpenModal(rowId)}
+                                moveTo={moveTo}
                             />
                         );
                     })}
-                    <AllCharacter
+                    {/* <AllCharacter
                         key="all-char"
                         characters={rows['all-char'].characterIds}
-                    />
+                    /> */}
                 </SCTierContainer>
                 <SettingModal
                     open={openModal}

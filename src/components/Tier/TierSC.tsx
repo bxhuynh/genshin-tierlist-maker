@@ -30,14 +30,18 @@ const SCControllerContainer = styled.div`
     background-color: black;
     color: white;
     display: flex;
-    justify-content: center;
+    justify-content: space-around;
     align-items: center;
-    // padding: 0px 8px;
+`;
+
+const SCArrowContainer = styled.div`
+    width: min-content;
 `;
 
 const SCSettingButton = styled.div`
     cursor: pointer;
-    padding: 8px;
+    padding: 6px;
+    margin: 2px;
     border-radius: 50%;
     &:hover {
         background: #333;
@@ -50,4 +54,5 @@ export {
     SCCharacterContainer,
     SCControllerContainer,
     SCSettingButton,
+    SCArrowContainer,
 };

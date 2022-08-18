@@ -2,14 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 
 const HeaderContainer = styled.div`
-    height: 70px;
     text-align: center;
 `;
 
 const Header: React.FC = () => {
     return (
         <HeaderContainer>
-            <h1>Genshin Tierlist Maker</h1>
+            <h1>TierMaker</h1>
         </HeaderContainer>
     );
 };
