@@ -3,13 +3,19 @@ import styled from 'styled-components';
 const SCApp = styled.div`
     width: 100%;
     overflow-x: hidden;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 `;
 
 const SCTierContainer = styled.div`
     width: 90%;
     max-width: 1062px;
-    margin: 9px auto;
-    border-top: 1px solid black;
+    border-top: 2px solid black;
+`;
+
+const SCAllContainer = styled(SCTierContainer)`
+    border: none;
 `;
 
 const ButtonContainerSC = styled.div`
@@ -46,4 +52,11 @@ const ButtomPrimarySC = styled(SCButton)`
     }
 `;
 
-export { ButtonContainerSC, SCTierContainer, SCApp, SCButton, ButtomPrimarySC };
+export {
+    SCAllContainer,
+    ButtonContainerSC,
+    SCTierContainer,
+    SCApp,
+    SCButton,
+    ButtomPrimarySC,
+};

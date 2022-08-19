@@ -14,23 +14,16 @@ import { TierInterface } from '../../constants/Interfaces';
 
 interface Props {
     row: TierInterface;
-    isLastItem?: boolean;
     rowIndex: number;
     onOpenModal: () => void;
     moveTo: (direction: 'ABOVE' | 'BELOW', index: number) => () => void;
 }
 
-const Tier: React.FC<Props> = ({
-    row,
-    isLastItem,
-    onOpenModal,
-    rowIndex,
-    moveTo,
-}) => {
+const Tier: React.FC<Props> = ({ row, onOpenModal, rowIndex, moveTo }) => {
     const { label, color, characterIds, id } = row;
 
     return (
-        <SCContainer isLastItem={isLastItem}>
+        <SCContainer>
             <SCLabel color={color}>{label}</SCLabel>
             <Droppable droppableId={id} direction="horizontal">
                 {(provided) => (

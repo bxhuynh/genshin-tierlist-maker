@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, RefObject } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
+import { toPng } from 'html-to-image';
 
 import AllCharacter from './components/AllCharacter';
 import Header from './components/Header';
@@ -18,6 +19,7 @@ import {
     ButtonContainerSC,
     SCButton,
     ButtomPrimarySC,
+    SCAllContainer,
 } from './AppSC';
 
 const App: React.FC = () => {
@@ -25,6 +27,7 @@ const App: React.FC = () => {
     const [rowOrder, setRowOrder] = useState<string[]>(initRowOrder);
     const [openModal, setOpenModal] = useState<boolean>(false);
     const [selectedRowId, setSelectedRowId] = useState<string>('');
+    const tierRef = useRef<HTMLDivElement>(null);
 
     const toggleModal = () => {
         setOpenModal(!openModal);
@@ -167,12 +170,23 @@ const App: React.FC = () => {
         setRowOrder(initRowOrder);
     };
 
+    const onSaveImage = async () => {
+        if (!tierRef || !tierRef.current) return;
+        const dataUrl: string = await toPng(tierRef.current, {
+            height: tierRef.current.clientHeight + 2,
+            width: tierRef.current.clientWidth - 78,
+        });
+        const link = document.createElement('a');
+        link.download = 'tierlist.png';
+        link.href = dataUrl;
+        link.click();
+    };
+
     return (
         <SCApp>
             <Header />
-
             <DragDropContext onDragEnd={onDragEnd}>
-                <SCTierContainer>
+                <SCTierContainer id="tierlist" ref={tierRef}>
                     {rowOrder.map((rowId: string, rowIndex: number) => {
                         const row = rows[rowId];
                         return (
@@ -180,34 +194,35 @@ const App: React.FC = () => {
                                 rowIndex={rowIndex}
                                 key={rowId}
                                 row={row}
-                                isLastItem={Boolean(
-                                    rowIndex === rowOrder.length - 1
-                                )}
                                 onOpenModal={handleOpenModal(rowId)}
                                 moveTo={moveTo}
                             />
                         );
                     })}
-                    <ButtonContainerSC>
-                        <ButtomPrimarySC>Save as Image</ButtomPrimarySC>
-                        <SCButton onClick={onClear}>Clear</SCButton>
-                    </ButtonContainerSC>
+                </SCTierContainer>
+                <ButtonContainerSC>
+                    <ButtomPrimarySC onClick={onSaveImage}>
+                        Save as Image
+                    </ButtomPrimarySC>
+                    <SCButton onClick={onClear}>Clear</SCButton>
+                </ButtonContainerSC>
+                <SCAllContainer>
                     <AllCharacter
                         key="all-char"
                         characters={rows['all-char'].characterIds}
                     />
-                </SCTierContainer>
-                <SettingModal
-                    open={openModal}
-                    toggleModal={toggleModal}
-                    row={rows[selectedRowId]}
-                    updateRow={updateRow}
-                    onClearAllImage={onClearAllImage}
-                    deleteSelectedRow={deleteSelectedRow}
-                    allowDelete={rowOrder.length > 1}
-                    addRow={addRow}
-                />
+                </SCAllContainer>
             </DragDropContext>
+            <SettingModal
+                open={openModal}
+                toggleModal={toggleModal}
+                row={rows[selectedRowId]}
+                updateRow={updateRow}
+                onClearAllImage={onClearAllImage}
+                deleteSelectedRow={deleteSelectedRow}
+                allowDelete={rowOrder.length > 1}
+                addRow={addRow}
+            />
         </SCApp>
     );
 };

@@ -1,13 +1,13 @@
 import styled from 'styled-components';
 
-const SCContainer = styled.div<{ isLastItem?: boolean }>`
+const SCContainer = styled.div`
     background-color: #333;
     min-height: 83px;
     display: flex;
     margin: 0 auto;
     border-style: solid;
     border-color: black;
-    border-width: 0px 1px ${(props) => (props.isLastItem ? '1px' : '2px')} 1px;
+    border-width: 0px 1px 2px 2px;
 `;
 const SCLabel = styled.div`
     width: 100px;
