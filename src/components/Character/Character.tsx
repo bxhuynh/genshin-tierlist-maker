@@ -6,11 +6,14 @@ interface CharacterProps {
     index: number;
 }
 
+const getAssetUrl = (characterId: string): string => {
+    return `url(/genshin-tierlist-maker/assets/character_icons/${characterId}.png)`;
+};
+
 const SCCharacter = styled.div<{ characterId: string }>`
     height: 80px;
     width: 80px;
-    background-image: ${(props) =>
-        `url(/assets/character_icons/${props.characterId}.png)`};
+    background-image: ${(props) => getAssetUrl(props.characterId)};
     background-position: center;
     background-size: cover;
     cursor: pointer;

@@ -1,4 +1,4 @@
-import React, { useState, useRef, RefObject } from 'react';
+import React, { useState, useRef } from 'react';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 import { toPng } from 'html-to-image';
 
@@ -46,7 +46,6 @@ const App: React.FC = () => {
 
     const onDragEnd = (result: DropResult) => {
         const { destination, source, draggableId } = result;
-        console.log({ destination, source, draggableId });
 
         if (!destination?.droppableId || !draggableId) return;
 
