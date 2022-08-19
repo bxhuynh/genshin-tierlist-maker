@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { DragDropContext, DropResult } from 'react-beautiful-dnd';
 
 import AllCharacter from './components/AllCharacter';
@@ -12,21 +11,17 @@ import { Tierlist, TierInterface, Direction } from './constants/Interfaces';
 import generateId from './utils/generateId';
 import getRandomColor from './utils/randomTierColor';
 import { deepCloneTierlist } from './utils/deepClone';
-
-const SCApp = styled.div`
-    width: 100%;
-    overflow-x: hidden;
-`;
-
-const SCTierContainer = styled.div`
-    width: 90%;
-    max-width: 1062px;
-    margin: 9px auto;
-    border-top: 1px solid black;
-`;
+import useLocalStorage from './utils/useLocalStorage';
+import {
+    SCApp,
+    SCTierContainer,
+    ButtonContainerSC,
+    SCButton,
+    ButtomPrimarySC,
+} from './AppSC';
 
 const App: React.FC = () => {
-    const [rows, setRows] = useState<Tierlist>(initRows);
+    const [rows, setRows] = useLocalStorage<Tierlist>('tierlist', initRows);
     const [rowOrder, setRowOrder] = useState<string[]>(initRowOrder);
     const [openModal, setOpenModal] = useState<boolean>(false);
     const [selectedRowId, setSelectedRowId] = useState<string>('');
@@ -167,6 +162,11 @@ const App: React.FC = () => {
         };
     };
 
+    const onClear = () => {
+        setRows(initRows);
+        setRowOrder(initRowOrder);
+    };
+
     return (
         <SCApp>
             <Header />
@@ -188,6 +188,10 @@ const App: React.FC = () => {
                             />
                         );
                     })}
+                    <ButtonContainerSC>
+                        <ButtomPrimarySC>Save as Image</ButtomPrimarySC>
+                        <SCButton onClick={onClear}>Clear</SCButton>
+                    </ButtonContainerSC>
                     <AllCharacter
                         key="all-char"
                         characters={rows['all-char'].characterIds}
