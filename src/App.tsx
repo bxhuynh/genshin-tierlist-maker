@@ -16,9 +16,9 @@ import useLocalStorage from './utils/useLocalStorage';
 import {
     SCApp,
     SCTierContainer,
-    ButtonContainerSC,
+    SCButtonContainer,
     SCButton,
-    ButtomPrimarySC,
+    SCButtomPrimary,
     SCAllContainer,
 } from './AppSC';
 
@@ -199,12 +199,12 @@ const App: React.FC = () => {
                         );
                     })}
                 </SCTierContainer>
-                <ButtonContainerSC>
-                    <ButtomPrimarySC onClick={onSaveImage}>
+                <SCButtonContainer>
+                    <SCButtomPrimary onClick={onSaveImage}>
                         Save as Image
-                    </ButtomPrimarySC>
+                    </SCButtomPrimary>
                     <SCButton onClick={onClear}>Clear</SCButton>
-                </ButtonContainerSC>
+                </SCButtonContainer>
                 <SCAllContainer>
                     <AllCharacter
                         key="all-char"

@@ -18,7 +18,7 @@ const SCAllContainer = styled(SCTierContainer)`
     border: none;
 `;
 
-const ButtonContainerSC = styled.div`
+const SCButtonContainer = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
@@ -44,7 +44,7 @@ const SCButton = styled.div`
     }
 `;
 
-const ButtomPrimarySC = styled(SCButton)`
+const SCButtomPrimary = styled(SCButton)`
     background-color: #4287f5;
     color: white;
     &:hover {
@@ -54,9 +54,9 @@ const ButtomPrimarySC = styled(SCButton)`
 
 export {
     SCAllContainer,
-    ButtonContainerSC,
+    SCButtonContainer,
     SCTierContainer,
     SCApp,
     SCButton,
-    ButtomPrimarySC,
+    SCButtomPrimary,
 };
