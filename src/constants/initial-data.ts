@@ -58,7 +58,20 @@ const allCharacters: string[] = [
     'yoimiya',
     'yunjin',
     'zhongli',
-];
+    'mika',
+    'yaoyao',
+    'baizhu',
+    'kirara',
+    'alhaitham',
+    'dehya',
+    'faruzan',
+    'kaveh',
+    'layla',
+    'nahida',
+    'wanderer',
+    'lyney',
+    'lynette',
+].sort();
 
 const initRows: Tierlist = {
     'tier-S': {
